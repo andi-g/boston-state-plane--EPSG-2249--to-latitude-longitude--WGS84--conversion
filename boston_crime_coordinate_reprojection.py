@@ -40,7 +40,7 @@ for i in jarr['rows']:
         lat, lon = reprojectCoord( float(r[' X']), float(r[' Y']) )
         r['geometry'] = {'type': 'Point', 'coordinates' : [lon, lat]}
         res.append( r )
-        t = requests.post(updateurl, data=json.dumps(r), headers={"Content-Type" : "application/json"}, auth=(twitterhandler, token) )
+        t = requests.post(updateurl, data=json.dumps(r), headers={"Content-Type" : "application/json"} )
 
 #make a local copy    
 pickle.dump( res, open( "boston_crime_latlon.pickle", "wb" ) )
