@@ -27,16 +27,15 @@ response = urllib2.urlopen( str( "%s/_all_docs" % couchurl ) )
 jsonstr  = response.read()
 jarr     = json.loads( jsonstr )
 
-
-#authentication
+#update the records
 updateurl = "http://mytwitterhandle:mydatatoken@data.ic.ht/dc6aca92f2c00f747e6961abf4e7ecf537"
-
 res = []
 for i in jarr['rows']:
     response = urllib2.urlopen( str( "%s/%s" % ( couchurl, i['id']) ) )
     jsonstr = response.read()
     r = json.loads( jsonstr ) 
     k = r.keys()
+    #you may have to replace the names of the coordinate fields in the data set
     if ' X' in k and ' Y' in k and len( r[' X'] ) > 0 and len( r[' Y'] ) > 0:
         lat, lon = reprojectCoord( float(r[' X']), float(r[' Y']) )
         r['geometry'] = {'type': 'Point', 'coordinates' : [lon, lat]}
